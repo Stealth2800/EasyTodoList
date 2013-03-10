@@ -2,6 +2,7 @@ package com.stealthyone.bukkit.todolist;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.stealthyone.bukkit.todolist.commands.CmdTodo;
 import com.stealthyone.bukkit.todolist.storage.ListFileManager;
 
 
@@ -32,6 +33,9 @@ public final class BasePlugin extends JavaPlugin {
 		
 		//Setup storage manager
 		storageManager = new ListFileManager(this);
+		
+		//Setup commands
+		this.getCommand("todo").setExecutor(new CmdTodo(this));
 		
 		log.info("EasyTodoList v" + this.getVersion() + " enabled!");
 	}
