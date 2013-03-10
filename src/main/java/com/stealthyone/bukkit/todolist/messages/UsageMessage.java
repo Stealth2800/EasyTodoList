@@ -3,6 +3,9 @@ package com.stealthyone.bukkit.todolist.messages;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import com.stealthyone.bukkit.todolist.BasePlugin;
+import com.stealthyone.bukkit.todolist.PluginMethods;
+
 public enum UsageMessage {
 
 	TODO(ChatColor.DARK_RED + "USAGE:" + ChatColor.RED + " /todo"),
@@ -26,7 +29,7 @@ public enum UsageMessage {
 	
 	public final void sendTo(CommandSender sender) {
 		if (this.isTagged) {
-			
+			PluginMethods.sendTaggedMessage(sender, this);
 		} else {
 			sender.sendMessage(this.usageMessage);
 		}
