@@ -20,6 +20,9 @@ public final class CmdTodoAdd implements ISubCmd {
 		String taskMessage = "";
 		for (int i = 1; i < args.length; i++) {
 			taskMessage += args[i];
+			if (i != args.length - 1) {
+				taskMessage += " ";
+			}
 		}
 		
 		storage.addTask(sender, taskMessage);
