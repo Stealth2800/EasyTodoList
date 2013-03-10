@@ -29,11 +29,12 @@ public final class CmdTodo implements CommandExecutor {
 			return true;
 		} else {
 			if (args[0].equalsIgnoreCase("add")) {
-				if (args.length > 1) {
+				if (args.length != 2) {
 					/* Show usage */
 					UsageMessage.TODO_ADD.sendTo(sender);
 					return true;
 				}
+				
 				ISubCmd command = new CmdTodoAdd(plugin);
 				command.run(sender, args);
 			} else if (args[0].equalsIgnoreCase("reload")) {
