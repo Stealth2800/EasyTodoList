@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import com.stealthyone.bukkit.todolist.BasePlugin;
 import com.stealthyone.bukkit.todolist.PluginLogger;
+import com.stealthyone.bukkit.todolist.PluginMethods;
 import com.stealthyone.bukkit.todolist.utils.CustomFileManager;
 
 public final class ListFileManager {
@@ -55,11 +56,12 @@ public final class ListFileManager {
 		/* Save changes to files */
 		structureFile.saveFile();
 		taskFile.saveFile();
+		
+		PluginMethods.sendTaggedMessage(sender, "Successfully added task " + Integer.toString(curTaskNum) + "to your todo list!");
 	}
 	
 	public final boolean shareTask(CommandSender sender, int ticketNum, List<String> otherPlayers) {
 		/* Define variables for easy reference */
-		PluginLogger log = plugin.getLog();
 		FileConfiguration structConfig = structureFile.getConfig();
 		FileConfiguration taskConfig = taskFile.getConfig();
 		
@@ -73,7 +75,12 @@ public final class ListFileManager {
 		/* Update structure file with all people ticket is shared with */
 		for (int i = 0; i < otherPlayers.size(); i++) {
 			String targetPlayer = otherPlayers.get(i);
-			int targetShareCount = structConfig.getConfigurationSection(targetPlayer + ".shared").getValues(false).size();
+			int targetShareCount;
+			try {
+				targetShareCount = structConfig.getConfigurationSection(targetPlayer + ".shared").getValues(false).size();
+			} catch (NullPointerException e) {
+				targetShareCount = 0;
+			}
 			structConfig.set(targetPlayer + ".shared." + Integer.toString(targetShareCount + 1), ticketNum);
 		}
 		return true;
