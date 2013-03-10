@@ -110,6 +110,6 @@ public final class TaskManager {
 		structureFile.saveFile();
 		taskFile.saveFile();
 		
-		PluginMethods.sendTaggedMessage(sender, "Successfully shared task with " + StringUtils.makeProperList((String[])otherPlayers.toArray()) + "!");
+		PluginMethods.sendTaggedMessage(sender, "Successfully shared task with " + StringUtils.makeProperList(otherPlayers) + "!");
 	}
 }
