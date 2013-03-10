@@ -11,6 +11,7 @@ import com.stealthyone.bukkit.todolist.BasePlugin;
 import com.stealthyone.bukkit.todolist.PluginLogger;
 import com.stealthyone.bukkit.todolist.PluginMethods;
 import com.stealthyone.bukkit.todolist.java.MapUtils;
+import com.stealthyone.bukkit.todolist.java.StringUtils;
 import com.stealthyone.bukkit.todolist.utils.CustomFileManager;
 
 public final class TaskManager {
@@ -58,7 +59,7 @@ public final class TaskManager {
 		String playerName = sender.getName().toLowerCase();		//Easy definition of the sender's name in lowercase
 		int playerTaskCount;
 		try {
-			playerTaskCount = structConfig.getConfigurationSection(playerName + ".owned").getValues(false).size();
+			playerTaskCount = taskConfig.getConfigurationSection(playerName).getValues(false).size();
 		} catch (NullPointerException e) {
 			playerTaskCount = 0;
 		}
@@ -108,5 +109,7 @@ public final class TaskManager {
 		/* Save changes to files */
 		structureFile.saveFile();
 		taskFile.saveFile();
+		
+		PluginMethods.sendTaggedMessage(sender, "Successfully shared ticket with " + StringUtils.makeProperList((String[])otherPlayers.toArray()) + "!");
 	}
 }
