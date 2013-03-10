@@ -40,7 +40,7 @@ public enum GenericMessage {
 		}
 		
 		if (this.isTagged) {
-			PluginMethods.sendTaggedMessage(sender, this);
+			PluginMethods.sendTaggedMessage(sender, newMessage);
 		} else {
 			sender.sendMessage(newMessage);
 		}
