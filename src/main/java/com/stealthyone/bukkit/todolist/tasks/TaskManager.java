@@ -1,32 +1,51 @@
-package com.stealthyone.bukkit.todolist.storage;
+package com.stealthyone.bukkit.todolist.tasks;
 
 import java.util.List;
+import java.util.Map;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import com.stealthyone.bukkit.todolist.BasePlugin;
 import com.stealthyone.bukkit.todolist.PluginLogger;
 import com.stealthyone.bukkit.todolist.PluginMethods;
+import com.stealthyone.bukkit.todolist.java.MapUtils;
 import com.stealthyone.bukkit.todolist.utils.CustomFileManager;
 
-public final class ListFileManager {
+public final class TaskManager {
 
 	private BasePlugin plugin;
 	
 	private CustomFileManager structureFile;
 	private CustomFileManager taskFile;
+	private CustomFileManager priorityFile;
 	
-	public ListFileManager(BasePlugin plugin) {
+	public TaskManager(BasePlugin plugin) {
 		this.plugin = plugin;
 		
 		//Setup files
 		structureFile = new CustomFileManager(plugin, "structure");
 		taskFile = new CustomFileManager(plugin, "tasks");
+		priorityFile = new CustomFileManager(plugin, "priorities");
 		structureFile.reloadConfig();
 		structureFile.saveFile();
 		taskFile.reloadConfig();
 		taskFile.saveFile();
+		priorityFile.reloadConfig();
+		priorityFile.saveFile();
+	}
+	
+	public final CustomFileManager getStructureFile() {
+		return this.structureFile;
+	}
+	
+	public final CustomFileManager getTaskFile() {
+		return this.taskFile;
+	}
+	
+	public final CustomFileManager getPriorityFile() {
+		return this.priorityFile;
 	}
 	
 	public final void addTask(CommandSender sender, String taskMessage) {
@@ -34,6 +53,7 @@ public final class ListFileManager {
 		PluginLogger log = plugin.getLog();		//Plugin logger for debugging purposes
 		FileConfiguration structConfig = structureFile.getConfig();		//Easy reference to the structure config
 		FileConfiguration taskConfig = taskFile.getConfig();		//Easy reference to the task config
+		FileConfiguration priorityConfig = priorityFile.getConfig();
 		
 		String playerName = sender.getName().toLowerCase();		//Easy definition of the sender's name in lowercase
 		int playerTaskCount;
@@ -52,6 +72,9 @@ public final class ListFileManager {
 		
 		//Save the ticket to taskFile
 		taskConfig.set(playerName + "." + Integer.toString(curTaskNum), taskMessage);
+		
+		//Set the priority
+		
 		
 		/* Save changes to files */
 		structureFile.saveFile();
