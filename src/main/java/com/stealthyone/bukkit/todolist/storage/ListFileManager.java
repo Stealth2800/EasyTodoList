@@ -1,10 +1,12 @@
-package com.stealthyone.bukkit.todolist;
+package com.stealthyone.bukkit.todolist.storage;
 
 import java.util.List;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import com.stealthyone.bukkit.todolist.BasePlugin;
+import com.stealthyone.bukkit.todolist.PluginLogger;
 import com.stealthyone.bukkit.todolist.utils.CustomFileManager;
 
 public final class ListFileManager {
@@ -45,7 +47,25 @@ public final class ListFileManager {
 		taskFile.saveFile();
 	}
 	
-	public final void shareTask(String owner, List<String> otherPlayers) {
+	public final boolean shareTask(CommandSender sender, int ticketNum, List<String> otherPlayers) {
+		/* Define variables for easy reference */
+		PluginLogger log = plugin.getLog();
+		FileConfiguration structConfig = structureFile.getConfig();
+		FileConfiguration taskConfig = taskFile.getConfig();
 		
+		String ownerName = sender.getName();
+		
+		/* Make sure ticket isn't null */
+		if (taskConfig.getString(ownerName + Integer.toString(ticketNum)) == null) {
+			return false;
+		}
+		
+		/* Update structure file with all people ticket is shared with */
+		for (int i = 0; i < otherPlayers.size(); i++) {
+			String targetPlayer = otherPlayers.get(i);
+			int targetShareCount = structConfig.getConfigurationSection(targetPlayer + ".shared").getValues(false).size();
+			structConfig.set(targetPlayer + ".shared." + Integer.toString(targetShareCount + 1), ticketNum);
+		}
+		return true;
 	}
 }
