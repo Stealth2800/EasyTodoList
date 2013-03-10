@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import com.stealthyone.bukkit.todolist.BasePlugin;
 import com.stealthyone.bukkit.todolist.PluginMethods;
 import com.stealthyone.bukkit.todolist.commands.subcommands.CmdTodoAdd;
+import com.stealthyone.bukkit.todolist.commands.subcommands.CmdTodoShare;
 import com.stealthyone.bukkit.todolist.commands.subcommands.ISubCmd;
 import com.stealthyone.bukkit.todolist.messages.UsageMessage;
 
@@ -36,6 +37,16 @@ public final class CmdTodo implements CommandExecutor {
 				}
 				
 				ISubCmd command = new CmdTodoAdd(plugin);
+				command.run(sender, args);
+				return true;
+			} else if (args[0].equalsIgnoreCase("share")) {
+				if (args.length < 2) {
+					/* Show usage */
+					UsageMessage.TODO_SHARE.sendTo(sender);
+					return true;
+				}
+				
+				ISubCmd command = new CmdTodoShare(plugin);
 				command.run(sender, args);
 				return true;
 			} else if (args[0].equalsIgnoreCase("reload")) {
