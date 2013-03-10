@@ -57,7 +57,7 @@ public final class ListFileManager {
 		structureFile.saveFile();
 		taskFile.saveFile();
 		
-		PluginMethods.sendTaggedMessage(sender, "Successfully added task " + Integer.toString(curTaskNum) + "to your todo list!");
+		PluginMethods.sendTaggedMessage(sender, "Successfully added a task to your todo list! You now have a total of " + Integer.toString(curTaskNum) + " tasks.");
 	}
 	
 	public final boolean shareTask(CommandSender sender, int ticketNum, List<String> otherPlayers) {
