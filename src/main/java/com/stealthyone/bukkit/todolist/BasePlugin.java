@@ -3,7 +3,7 @@ package com.stealthyone.bukkit.todolist;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.stealthyone.bukkit.todolist.commands.CmdTodo;
-import com.stealthyone.bukkit.todolist.storage.ListFileManager;
+import com.stealthyone.bukkit.todolist.tasks.TaskManager;
 
 
 public final class BasePlugin extends JavaPlugin {
@@ -20,7 +20,7 @@ public final class BasePlugin extends JavaPlugin {
 	
 	private PluginConfig config;
 	private PluginLogger log;
-	private ListFileManager storageManager;
+	private TaskManager storageManager;
 	
 	@Override
 	public final void onEnable() {
@@ -32,7 +32,7 @@ public final class BasePlugin extends JavaPlugin {
 		log = new PluginLogger(this);
 		
 		//Setup storage manager
-		storageManager = new ListFileManager(this);
+		storageManager = new TaskManager(this);
 		
 		//Setup commands
 		this.getCommand("todo").setExecutor(new CmdTodo(this));
@@ -61,7 +61,7 @@ public final class BasePlugin extends JavaPlugin {
 	}
 	
 	/* Returns the file storage manager */
-	public final ListFileManager getStorageManager() {
+	public final TaskManager getStorageManager() {
 		return this.storageManager;
 	}
 }
