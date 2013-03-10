@@ -73,12 +73,13 @@ public final class TaskManager {
 		//Save the ticket to taskFile
 		taskConfig.set(playerName + "." + Integer.toString(curTaskNum), taskMessage);
 		
-		//Set the priority
-		
-		
 		/* Save changes to files */
 		structureFile.saveFile();
 		taskFile.saveFile();
+		
+		/* Set the priority */
+		PriorityHelper.setPriority(sender, playerName + "." + Integer.toString(curTaskNum), 1);
+		priorityFile.saveFile();
 		
 		PluginMethods.sendTaggedMessage(sender, "Successfully added a task to your todo list! You now have a total of " + Integer.toString(curTaskNum) + " tasks.");
 	}
