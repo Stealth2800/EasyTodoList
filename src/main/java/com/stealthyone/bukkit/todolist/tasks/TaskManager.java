@@ -67,9 +67,6 @@ public final class TaskManager {
 		
 		/* Set values in task and structure files */
 		
-		//Define that the owner owns this ticket
-		structConfig.set(playerName + ".owned." + curTaskNum, playerName + "." + curTaskNum);
-		
 		//Save the ticket to taskFile
 		taskConfig.set(playerName + "." + Integer.toString(curTaskNum), taskMessage);
 		
