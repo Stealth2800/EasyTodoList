@@ -10,9 +10,8 @@ import com.stealthyone.bukkit.todolist.java.MapUtils;
 
 public class PriorityHelper {
 
-	/**
-	 * getPriority outline:
-	 * GOAL: Return the priority of the task for a specified player
+	/*
+	 * Returns the current priority of a ticket for a specified player
 	 */
 	public final static int getPriority(CommandSender sender, String taskName) {
 		FileConfiguration priorityConfig = BasePlugin.getInstance().getStorageManager().getPriorityFile().getConfig();
@@ -29,5 +28,19 @@ public class PriorityHelper {
 		int curPriority = MapUtils.getLocationInMap(taskName, playerPriorities);
 		
 		return curPriority;
+	}
+	
+	/*
+	 * Sets the priority of a player's task
+	 */
+	public final static void setPriority(CommandSender sender, String taskName, int newPriority) {
+		
+	}
+	
+	/*
+	 * Returns if a player has access to a specified task
+	 */
+	public final static boolean playerOwnsTask(CommandSender sender, String taskName) {
+		return false;
 	}
 }
