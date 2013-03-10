@@ -60,33 +60,32 @@ public final class ListFileManager {
 		PluginMethods.sendTaggedMessage(sender, "Successfully added a task to your todo list! You now have a total of " + Integer.toString(curTaskNum) + " tasks.");
 	}
 	
-	public final boolean shareTask(CommandSender sender, int ticketNum, List<String> otherPlayers) {
+	public final void shareTask(CommandSender sender, int ticketNum, List<String> otherPlayers) {
 		/* Define variables for easy reference */
 		FileConfiguration structConfig = structureFile.getConfig();
 		FileConfiguration taskConfig = taskFile.getConfig();
 		
-		String ownerName = sender.getName();
+		String ownerName = sender.getName().toLowerCase();
 		
 		/* Make sure ticket isn't null */
-		if (taskConfig.getString(ownerName + Integer.toString(ticketNum)) == null) {
-			return false;
+		if (taskConfig.getString(ownerName + "." + Integer.toString(ticketNum)) == null) {
+			return;
 		}
 		
 		/* Update structure file with all people ticket is shared with */
 		for (int i = 0; i < otherPlayers.size(); i++) {
-			String targetPlayer = otherPlayers.get(i);
+			String targetPlayer = otherPlayers.get(i).toLowerCase();
 			int targetShareCount;
 			try {
 				targetShareCount = structConfig.getConfigurationSection(targetPlayer + ".shared").getValues(false).size();
 			} catch (NullPointerException e) {
 				targetShareCount = 0;
 			}
-			structConfig.set(targetPlayer + ".shared." + Integer.toString(targetShareCount + 1), ticketNum);
+			structConfig.set(targetPlayer + ".shared." + Integer.toString(targetShareCount + 1), ownerName + "." + ticketNum);
 		}
 		
 		/* Save changes to files */
 		structureFile.saveFile();
 		taskFile.saveFile();
-		return true;
 	}
 }
