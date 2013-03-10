@@ -22,6 +22,10 @@ public final class ListFileManager {
 		//Setup files
 		structureFile = new CustomFileManager(plugin, "structure");
 		taskFile = new CustomFileManager(plugin, "tasks");
+		structureFile.reloadConfig();
+		structureFile.saveFile();
+		taskFile.reloadConfig();
+		taskFile.saveFile();
 	}
 	
 	public final void addTask(CommandSender sender, String taskMessage) {
@@ -30,8 +34,14 @@ public final class ListFileManager {
 		FileConfiguration structConfig = structureFile.getConfig();		//Easy reference to the structure config
 		FileConfiguration taskConfig = taskFile.getConfig();		//Easy reference to the task config
 		
-		String playerName = sender.getName();		//Easy definition of the sender's name in lowercase
-		int playerTaskCount = structConfig.getConfigurationSection(playerName + ".owned").getValues(false).size();		//the amount of tasks the player has registered
+		String playerName = sender.getName().toLowerCase();		//Easy definition of the sender's name in lowercase
+		int playerTaskCount;
+		try {
+			playerTaskCount = structConfig.getConfigurationSection(playerName + ".owned").getValues(false).size();
+		} catch (NullPointerException e) {
+			playerTaskCount = 0;
+		}
+		
 		int curTaskNum = playerTaskCount + 1;		//the current task number that we're dealing with
 		
 		/* Set values in task and structure files */
@@ -40,7 +50,7 @@ public final class ListFileManager {
 		structConfig.set(playerName + ".owned." + curTaskNum, playerName + "." + curTaskNum);
 		
 		//Save the ticket to taskFile
-		taskConfig.set(playerName + Integer.toString(curTaskNum), taskMessage);
+		taskConfig.set(playerName + "." + Integer.toString(curTaskNum), taskMessage);
 		
 		/* Save changes to files */
 		structureFile.saveFile();
