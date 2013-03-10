@@ -29,7 +29,7 @@ public final class CmdTodo implements CommandExecutor {
 			return true;
 		} else {
 			if (args[0].equalsIgnoreCase("add")) {
-				if (args.length != 2) {
+				if (args.length < 2) {
 					/* Show usage */
 					UsageMessage.TODO_ADD.sendTo(sender);
 					return true;
@@ -37,6 +37,7 @@ public final class CmdTodo implements CommandExecutor {
 				
 				ISubCmd command = new CmdTodoAdd(plugin);
 				command.run(sender, args);
+				return true;
 			} else if (args[0].equalsIgnoreCase("reload")) {
 				/* Reloads config from file */
 				PluginMethods.sendTaggedMessage(sender, ChatColor.RED + "Reloading config...");
