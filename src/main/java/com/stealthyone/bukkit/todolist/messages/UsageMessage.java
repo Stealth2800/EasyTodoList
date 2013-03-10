@@ -8,6 +8,7 @@ public enum UsageMessage {
 	TODO("/todo"),
 	TODO_ADD("/todo add <message>"),
 	TODO_CHECK("/todo check [page]"),
+	TODO_SETPRIORITY("/todo setpriority <task name OR number> <new priority>"),
 	TODO_SHARE("/todo share <task ID> <player> [player2] [player3] ...");
 	
 	private String usageMessage;
