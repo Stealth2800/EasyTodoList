@@ -22,6 +22,10 @@ public final class StringUtils {
 		return false;
 	}
 	
+	public final static String makeProperList(List<String> items) {
+		return makeProperList(items.toArray(new String[0]));
+	}
+	
 	/* Converts a string array into a proper english list */
 	public final static String makeProperList(String[] items) {
 		String returnString = "";
