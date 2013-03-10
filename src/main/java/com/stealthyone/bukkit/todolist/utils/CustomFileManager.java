@@ -25,7 +25,9 @@ public class CustomFileManager {
 	 * Reload file from disk
 	 */
 	public void reloadConfig() {
+		plugin.getLog().debug("(" + fileName + ") reloadConfig");
 		if (customFile == null) {
+			plugin.getLog().debug("(" + fileName + ") customFile == null");
 			customFile = new File(plugin.getDataFolder(), fileName + ".yml");
 		}
 		customConfig = YamlConfiguration.loadConfiguration(customFile);
@@ -48,7 +50,7 @@ public class CustomFileManager {
 	public void saveFile() {
 		plugin.getLog().debug("Saving file: " + this.fileName);
         if (customConfig == null || customFile == null) {
-            return;
+        	this.reloadConfig();
         } else {
         	plugin.getLog().debug("Attempting to save to file");
             try {
