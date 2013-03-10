@@ -1,0 +1,11 @@
+name: EasyTodoList
+main: com.stealthyone.bukkit.todolist.BasePlugin
+version: 1.0
+website: http://stealthyone.com/bukkit
+description: Easy way to allow members to create todo lists via commands
+author: Stealth2800
+commands:
+  todo:
+    description: 'Base plugin command'
+    usage: '/todo'
+    aliases: [td]
