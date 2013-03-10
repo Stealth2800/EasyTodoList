@@ -27,6 +27,6 @@ public final class CmdTodoSetpriority implements ISubCmd {
 			return;
 		}
 		
-		storage.setPriority(sender, args[1], Integer.valueOf(args[2]));
+		//storage.setPriority(sender, args[1], Integer.valueOf(args[2]));
 	}
 }
