@@ -83,6 +83,10 @@ public final class ListFileManager {
 			}
 			structConfig.set(targetPlayer + ".shared." + Integer.toString(targetShareCount + 1), ticketNum);
 		}
+		
+		/* Save changes to files */
+		structureFile.saveFile();
+		taskFile.saveFile();
 		return true;
 	}
 }
