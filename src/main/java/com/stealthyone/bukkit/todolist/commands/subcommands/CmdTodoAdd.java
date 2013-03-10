@@ -17,7 +17,10 @@ public final class CmdTodoAdd implements ISubCmd {
 	public final void run(CommandSender sender, String[] args) {
 		ListFileManager storage = plugin.getStorageManager();
 		
-		String taskMessage = args[1];
+		String taskMessage = "";
+		for (int i = 1; i < args.length; i++) {
+			taskMessage += args[i];
+		}
 		
 		storage.addTask(sender, taskMessage);
 		return;
