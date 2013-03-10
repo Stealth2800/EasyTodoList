@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 
 import com.stealthyone.bukkit.todolist.BasePlugin;
 import com.stealthyone.bukkit.todolist.messages.GenericMessage;
-import com.stealthyone.bukkit.todolist.storage.ListFileManager;
+import com.stealthyone.bukkit.todolist.tasks.TaskManager;
 
 public final class CmdTodoShare implements ISubCmd {
 	
@@ -20,7 +20,7 @@ public final class CmdTodoShare implements ISubCmd {
 
 	@Override
 	public void run(CommandSender sender, String[] args) {
-		ListFileManager storage = plugin.getStorageManager();
+		TaskManager storage = plugin.getStorageManager();
 		
 		int taskNum;
 		try {

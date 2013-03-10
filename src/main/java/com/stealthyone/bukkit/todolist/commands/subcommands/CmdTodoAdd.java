@@ -3,7 +3,7 @@ package com.stealthyone.bukkit.todolist.commands.subcommands;
 import org.bukkit.command.CommandSender;
 
 import com.stealthyone.bukkit.todolist.BasePlugin;
-import com.stealthyone.bukkit.todolist.storage.ListFileManager;
+import com.stealthyone.bukkit.todolist.tasks.TaskManager;
 
 public final class CmdTodoAdd implements ISubCmd {
 
@@ -15,7 +15,7 @@ public final class CmdTodoAdd implements ISubCmd {
 	
 	@Override
 	public final void run(CommandSender sender, String[] args) {
-		ListFileManager storage = plugin.getStorageManager();
+		TaskManager storage = plugin.getStorageManager();
 		
 		String taskMessage = "";
 		for (int i = 1; i < args.length; i++) {
