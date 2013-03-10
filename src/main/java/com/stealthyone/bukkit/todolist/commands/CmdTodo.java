@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import com.stealthyone.bukkit.todolist.BasePlugin;
+import com.stealthyone.bukkit.todolist.PluginMethods;
 import com.stealthyone.bukkit.todolist.commands.subcommands.CmdTodoAdd;
 import com.stealthyone.bukkit.todolist.commands.subcommands.ISubCmd;
 import com.stealthyone.bukkit.todolist.messages.UsageMessage;
@@ -35,6 +36,12 @@ public final class CmdTodo implements CommandExecutor {
 				}
 				ISubCmd command = new CmdTodoAdd(plugin);
 				command.run(sender, args);
+			} else if (args[0].equalsIgnoreCase("reload")) {
+				/* Reloads config from file */
+				PluginMethods.sendTaggedMessage(sender, ChatColor.RED + "Reloading config...");
+				plugin.reloadConfig();
+				PluginMethods.sendTaggedMessage(sender, ChatColor.RED + "Reloaded config from file");
+				return true;
 			}
 		}
 		
